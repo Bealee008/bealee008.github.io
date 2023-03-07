@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="课堂上老师实现的代码： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869#include &lt;stdio.h&gt;#define MAXSIZE 100typedef struct&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历">
+<meta property="og:url" content="https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/index.html">
+<meta property="og:site_name" content="Bealee&#39;s Blog">
+<meta property="og:description" content="课堂上老师实现的代码： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869#include &lt;stdio.h&gt;#define MAXSIZE 100typedef struct&amp;#">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2023/03/06/ZP2TeEUoy68XIWa.png">
+<meta property="article:published_time" content="2023-03-05T06:50:29.588Z">
+<meta property="article:modified_time" content="2023-03-05T16:51:00.422Z">
+<meta property="article:author" content="Bealee">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/03/06/ZP2TeEUoy68XIWa.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Bealee&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/note/">Note</a></li><!--
+     --><!--
+       --><li><a href="/tag/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/project/">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/03/05/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%A2%98%E7%9B%AE/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/03/05/hello-world/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&text=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&title=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&is_video=false&description=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历&body=Check out this article: https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&title=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&title=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&title=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&title=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&name=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&t=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text">实现思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Q-amp-A"><span class="toc-number">3.</span> <span class="toc-text">Q&amp;A</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Bealee</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-03-05T06:50:29.588Z" itemprop="datePublished">2023-03-05</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>课堂上老师实现的代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> data[MAXSIZE];</span><br><span class="line">    <span class="type">int</span> length;</span><br><span class="line">&#125;SQList;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">InitList</span><span class="params">(SQList *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    L-&gt;length = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">ListInsert</span><span class="params">(SQList *L, <span class="type">int</span> i, <span class="type">int</span> e)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> j;</span><br><span class="line">    <span class="keyword">if</span>( i &lt; <span class="number">1</span> || i &gt; L-&gt;length +<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Error:insert index error\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( L-&gt;length == MAXSIZE )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Error:List is full\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>( j = L-&gt;length; j &gt;= i; j-- )</span><br><span class="line">    &#123;</span><br><span class="line">        L-&gt;data[j] = L-&gt;data[j<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    L-&gt;data[i<span class="number">-1</span>] = e;</span><br><span class="line">    L-&gt;length++;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">GetElement</span><span class="params">(SQList *L, <span class="type">int</span> i)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ( i &lt; <span class="number">1</span> || i &gt; L-&gt;length)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Error: Get index error\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> L-&gt;data[i<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Traverse</span><span class="params">(SQList *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; L-&gt;length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>, L-&gt;data[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    SQList L;</span><br><span class="line">    <span class="type">int</span> i, e;</span><br><span class="line">    InitList(&amp;L);</span><br><span class="line">    ListInsert(&amp;L,<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">    ListInsert(&amp;L,<span class="number">1</span>, <span class="number">3</span>);</span><br><span class="line">    ListInsert(&amp;L,<span class="number">2</span>, <span class="number">4</span>);</span><br><span class="line">    ListInsert(&amp;L,<span class="number">2</span>, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">    Traverse(&amp;L);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p>1、包含标准输入输出头文件。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>2、定义宏 MAXSIZE 为100。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 100</span></span><br></pre></td></tr></table></figure>
+<p>3、定义结构体 SQList，包含 int 类型数组 data 和 int 类型 length。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> data[MAXSIZE];</span><br><span class="line">    <span class="type">int</span> length;</span><br><span class="line">&#125;SQList;</span><br></pre></td></tr></table></figure>
+<p>4、定义函数 InitList，初始化顺序表 L 的长度为 0。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitList</span><span class="params">(SQList *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    L-&gt;length = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>5、定义函数 ListInsert，用于在顺序表 L 中第 i 个位置插入元素 e。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">ListInsert</span><span class="params">(SQList *L, <span class="type">int</span> i, <span class="type">int</span> e)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> j;</span><br><span class="line">    <span class="comment">// 判断插入位置是否合法</span></span><br><span class="line">    <span class="keyword">if</span>( i &lt; <span class="number">1</span> || i &gt; L-&gt;length +<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Error:insert index error\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 判断顺序表是否已满</span></span><br><span class="line">    <span class="keyword">if</span> ( L-&gt;length == MAXSIZE )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Error:List is full\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 从后向前将元素后移</span></span><br><span class="line">    <span class="keyword">for</span>( j = L-&gt;length; j &gt;= i; j-- )</span><br><span class="line">    &#123;</span><br><span class="line">        L-&gt;data[j] = L-&gt;data[j<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 在第 i 个位置插入元素 e</span></span><br><span class="line">    L-&gt;data[i<span class="number">-1</span>] = e;</span><br><span class="line">    L-&gt;length++;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>6、定义函数 GetElement，获取顺序表 L 中第 i 个位置的元素。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">GetElement</span><span class="params">(SQList *L, <span class="type">int</span> i)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 判断获取位置是否合法</span></span><br><span class="line">    <span class="keyword">if</span> ( i &lt; <span class="number">1</span> || i &gt; L-&gt;length)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Error: Get index error\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> L-&gt;data[i<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>7、定义函数 Traverse，遍历顺序表 L 并输出每个元素。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Traverse</span><span class="params">(SQList *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; L-&gt;length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>, L-&gt;data[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>8、主函数中定义顺序表 L，并对其进行初始化。调用 ListInsert 函数向 L 中插入 4 个元素，再调用 Traverse 函数输出顺序表中所有元素。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    SQList L;</span><br><span class="line">    <span class="type">int</span> i, e;</span><br><span class="line">    InitList(&amp;L);</span><br><span class="line">    ListInsert(&amp;L,<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">    ListInsert(&amp;L,<span class="number">1</span>, <span class="number">3</span>);</span><br><span class="line">    ListInsert(&amp;L,<span class="number">2</span>, <span class="number">4</span>);</span><br><span class="line">    ListInsert(&amp;L,<span class="number">2</span>, <span class="number">5</span>);</span><br><span class="line">    Traverse(&amp;L);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：<br><img src="https://s2.loli.net/2023/03/06/ZP2TeEUoy68XIWa.png" alt="image-20230228172828013.png" style="zoom:50%;float: left;" /></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>该代码实现了顺序表的基本操作，包括初始化顺序表、向顺序表中插入元素、获取顺序表中的元素和遍历顺序表。使用宏定义了线性表的最大长度。通过这些操作可以方便地对线性表进行操作，进行元素的增删改查。主函数中演示了如何使用这些操作来创建顺序表并对其进行操作。新手可以通过理解该代码来学习线性结构中顺序表的基本操作，包括初始化、插入、获取元素和遍历等。</p>
+<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><p>Q1：要学习数据结构前需要什么前置知识？<br>A1：要有编程语言为基础，这里推荐C&#x2F;C++最为和合适，其他Java、Go、C#、Rust等编程语言也可以。数据结构一般与算法关联，重要的是实现思路，任何编程语言都可以实现。其中，在数据结构和算法中大部分都会使用到编程中指针、结构体、各种循环、各种判断语句等等，所以在学习数据结构与算法前编程语言功底是很有必要的。</p>
+<p>Q2：C语言和数据结构有什么学习教程推荐吗？<br>A2：可以通过阅读相关书籍 or 视频教程去针对性学习<br>书籍推荐如下：</p>
+<ul>
+<li>《C Primer Plus（第6版）》 - Stephen Prata著<br>该书是一本非常受欢迎的C语言入门教材。它以易于理解的方式介绍了C语言的基本概念，从简单的程序开始，循序渐进地深入探讨C语言的各个方面。该书还包括许多示例代码和练习题，这些都可以帮助读者快速掌握C语言的编程技能。</li>
+<li>《数据结构与算法分析（C语言描述）》 - Mark Allen Weiss著<br>该书介绍了数据结构和算法的基本原理，并使用C语言进行描述和实现。该书提供了大量的示例代码和练习题，涵盖了众多常见的数据结构和算法，如数组、栈、队列、链表、树、散列表等等。该书内容全面，适合初学者和有一定经验的程序员学习。</li>
+</ul>
+<p>视频教程推荐如下：</p>
+<ul>
+<li>C语言程序设计（CLion版-2022）：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Cr4y137os?p=1&vd_source=df047e552d8052bb5bf4941af8d64c97">https://www.bilibili.com/video/BV1Cr4y137os?p=1&amp;vd_source=df047e552d8052bb5bf4941af8d64c97</a></li>
+<li>数据结构与算法（CLion版-2022）：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV13W4y127Ey/?spm_id_from=333.337.top_right_bar_window_history.content.click&vd_source=df047e552d8052bb5bf4941af8d64c97">https://www.bilibili.com/video/BV13W4y127Ey/?spm_id_from=333.337.top_right_bar_window_history.content.click&amp;vd_source=df047e552d8052bb5bf4941af8d64c97</a></li>
+</ul>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/note/">Note</a></li>
+         
+          <li><a href="/tag/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/project/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text">实现思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Q-amp-A"><span class="toc-number">3.</span> <span class="toc-text">Q&amp;A</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&text=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&title=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&is_video=false&description=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历&body=Check out this article: https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&title=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&title=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&title=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&title=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&name=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://bealee008.github.io/2023/03/05/%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84-%E5%AE%9E%E7%8E%B0%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E3%80%81%E9%81%8D%E5%8E%86/&t=线性结构-实现顺序表的数据存储、初始化、插入、获取元素、遍历"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    Bealee
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a href="/note/">Note</a></li><!--
+    --><!--
+      --><li><a href="/tag/">Tag</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/project/">Projects</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'cactus-1';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

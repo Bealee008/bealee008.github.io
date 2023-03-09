@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="第一道题目：shiro找到正确的key在忙碌的过程中某佬丢给我一道ctf题目叫我耍耍上来就一个公网ip，case1如下：、、、httptarget:http:&#x2F;&#x2F;某公网ip&#x2F;case1&#x2F;、、、抓包发现file参数加载css找到目录路径 fuzz后常识发现file参数任意文件读取一枚Request： 12345678GET &#x2F;case1&#x2F;show&#x2F;showfi">
+    <meta name="description" content="第一道题目：shiro找到正确的key在忙碌的过程中某佬丢给我一道ctf题目叫我耍耍上来就一个公网ip，case1如下： 12target:http:&#x2F;&#x2F;某公网ip&#x2F;case1&#x2F; 抓包发现file参数加载css找到目录路径 fuzz后常识发现file参数任意文件读取一枚Request： 12345678GET &#x2F;case1&#x2F;show&#x2F;showfile?file&#x3D;%2fetc%2fpasswd HT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CTF - 快乐getshell记录之有趣的shiro key">
 <meta property="og:url" content="https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Bealee&#39;s Blog">
-<meta property="og:description" content="第一道题目：shiro找到正确的key在忙碌的过程中某佬丢给我一道ctf题目叫我耍耍上来就一个公网ip，case1如下：、、、httptarget:http:&#x2F;&#x2F;某公网ip&#x2F;case1&#x2F;、、、抓包发现file参数加载css找到目录路径 fuzz后常识发现file参数任意文件读取一枚Request： 12345678GET &#x2F;case1&#x2F;show&#x2F;showfi">
+<meta property="og:description" content="第一道题目：shiro找到正确的key在忙碌的过程中某佬丢给我一道ctf题目叫我耍耍上来就一个公网ip，case1如下： 12target:http:&#x2F;&#x2F;某公网ip&#x2F;case1&#x2F; 抓包发现file参数加载css找到目录路径 fuzz后常识发现file参数任意文件读取一枚Request： 12345678GET &#x2F;case1&#x2F;show&#x2F;showfile?file&#x3D;%2fetc%2fpasswd HT">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s2.loli.net/2023/03/09/twC5vVi7DNf682z.png">
 <meta property="og:image" content="https://s2.loli.net/2023/03/09/72vdpYqsLlxR8PA.png">
@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://s2.loli.net/2023/03/09/1LngBOHeG82XPlQ.png">
 <meta property="og:image" content="https://s2.loli.net/2023/03/09/z8qpKRXwWhU93JB.png">
 <meta property="article:published_time" content="2023-03-09T05:24:54.576Z">
-<meta property="article:modified_time" content="2023-03-09T05:31:01.829Z">
+<meta property="article:modified_time" content="2023-03-09T05:36:24.808Z">
 <meta property="article:author" content="Bealee">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2023/03/09/twC5vVi7DNf682z.png">
@@ -168,7 +168,9 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="第一道题目：shiro找到正确的key"><a href="#第一道题目：shiro找到正确的key" class="headerlink" title="第一道题目：shiro找到正确的key"></a>第一道题目：shiro找到正确的key</h2><p>在忙碌的过程中某佬丢给我一道ctf题目叫我耍耍<br>上来就一个公网ip，case1如下：<br>、、、http<br>target:<br>http:&#x2F;&#x2F;某公网ip&#x2F;case1&#x2F;<br>、、、<br>抓包发现file参数加载css找到目录路径<br><img src="https://s2.loli.net/2023/03/09/twC5vVi7DNf682z.png" alt="image-20230309125248921.png"></p>
+    <h2 id="第一道题目：shiro找到正确的key"><a href="#第一道题目：shiro找到正确的key" class="headerlink" title="第一道题目：shiro找到正确的key"></a>第一道题目：shiro找到正确的key</h2><p>在忙碌的过程中某佬丢给我一道ctf题目叫我耍耍<br>上来就一个公网ip，case1如下：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">target</span>:</span><br><span class="line">http://某公网ip/case1/</span><br></pre></td></tr></table></figure>
+<p>抓包发现file参数加载css找到目录路径<br><img src="https://s2.loli.net/2023/03/09/twC5vVi7DNf682z.png" alt="image-20230309125248921.png"></p>
 <p>fuzz后常识发现file参数任意文件读取一枚<br><img src="https://s2.loli.net/2023/03/09/72vdpYqsLlxR8PA.png" alt="image-20230309125340472.png"><br>Request：</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /case1/<span class="keyword">show</span>/showfile?file=%<span class="number">2</span>fetc%<span class="number">2</span>fpasswd HTTP/<span class="number">1.1</span></span><br><span class="line">Host: ip</span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64; rv:<span class="number">97.0</span>) Gecko/<span class="number">20100101</span> Firefox/<span class="number">97.0</span></span><br><span class="line">Accept: text/css,*<span class="comment">/*;q=0.1</span></span><br><span class="line"><span class="comment">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span></span><br><span class="line"><span class="comment">Accept-Encoding: gzip, deflate</span></span><br><span class="line"><span class="comment">Connection: close</span></span><br><span class="line"><span class="comment">Referer: http://175.27.156.185/case1/</span></span><br></pre></td></tr></table></figure>
 

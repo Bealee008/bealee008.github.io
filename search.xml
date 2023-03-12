@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title></title>
+      <link href="/2023/03/12/%E5%BE%AE%E4%BF%A1%E9%AB%98%E7%89%88%E6%9C%ACxweb%E5%86%85%E6%A0%B8%E8%B7%B3%E8%BF%87%E9%9D%92%E5%B9%B4%E5%A4%A7%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%A1%B5%E9%9D%A2%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <url>/2023/03/12/%E5%BE%AE%E4%BF%A1%E9%AB%98%E7%89%88%E6%9C%ACxweb%E5%86%85%E6%A0%B8%E8%B7%B3%E8%BF%87%E9%9D%92%E5%B9%B4%E5%A4%A7%E5%AD%A6%E4%B9%A0%E4%B8%8E%E9%A1%B5%E9%9D%A2%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</url>
+      
+        <content type="html"><![CDATA[<h1 id="时间管理之青年大学习bypass"><a href="#时间管理之青年大学习bypass" class="headerlink" title="时间管理之青年大学习bypass"></a>时间管理之青年大学习bypass</h1><p>背景：</p><p>最近在忙着考研学习&amp;帮朋友合作开源项目的事情，学校要求每周都得去弄青年大学习，作为新时代大学生，我们是除夕街头即将放飞理想的有志青年，我感觉，是时候要做点什么了。<br>不多bb，下面开始。</p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>跳过bypass青年大学习是一种在微信上观看政治教育视频时，不用完整地看完视频就可以完成任务的方法。根据互联网上的传统的bypass，可以有以下3种：</p><p><a href="https://cloud.tencent.com/developer/article/1922102">传送门1</a></p><p><a href="https://www.bilibili.com/read/cv15585393">传送门2</a></p><p><a href="https://cloud.tencent.com/developer/article/1961708">传送门3</a></p><p>总的来说，传统的bypass青年大学习的方法有以下几种：</p><ul><li>iOS系统可以直接跳过视频，只需在视频播放时拖动进度条到最后即可。</li><li>安卓系统可以使用X5内核浏览器（如QQ浏览器、UC浏览器等）打开视频链接，然后在浏览器的控制台中修改video元素的currentTime属性，将其设置为视频的总时长。</li><li>安卓系统也可以使用一个网址<a href="https://cloud.tencent.com/developer/article/1961708">3</a>来跳过视频，只需在网址后面加上视频链接即可。</li></ul><p>请注意，跳过青年大学习可能会有一定的风险，建议您按照正常的方式观看视频，以免造成不必要的麻烦。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>浅谈2023年研考国家线最新公布</title>
       <link href="/2023/03/12/%E6%B5%85%E8%B0%882023%E5%B9%B4%E7%A0%94%E8%80%83%E5%9B%BD%E5%AE%B6%E7%BA%BF%E6%9C%80%E6%96%B0%E5%85%AC%E5%B8%83/"/>
       <url>/2023/03/12/%E6%B5%85%E8%B0%882023%E5%B9%B4%E7%A0%94%E8%80%83%E5%9B%BD%E5%AE%B6%E7%BA%BF%E6%9C%80%E6%96%B0%E5%85%AC%E5%B8%83/</url>

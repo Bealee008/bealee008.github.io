@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang=zh>
 <head>
     <!-- so meta -->
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://bealee008.github.io/2023/03/07/%E5%AE%8C%E6%88%90%E7%BC%BA%E5%A4%B1%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A2%98%E7%9B%AE/index.html">
 <meta property="og:site_name" content="Bealee&#39;s Blog">
 <meta property="og:description" content="线性表的顺序存储表示（结构）完成以下缺失代码：阅读下列程序请注意几个问题：（1）关于线性表的顺序存储结构的本质是：在逻辑上相邻的两个数据元素 a(i-1)， a(i), 在存储地址中也是相邻的，既地址连续。顺序存储结构也称 “向量(vector）”。在下列类设计中，采用静态一维数组 data[]表示向量，同时用Maxsize表示顺序表的最大容量，length表示线性表当前所存放的元素个数。Elem">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/03/07/JiweBXbSKsZRNz4.png">
 <meta property="article:published_time" content="2023-03-07T03:27:24.318Z">
 <meta property="article:modified_time" content="2023-03-07T03:40:02.303Z">
@@ -57,26 +57,26 @@
 <body class="max-width mx-auto px3 ltr">
     
       <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
   <span id="menu">
     <span id="nav">
       <ul>
         <!--
-       --><li><a href="/">Home</a></li><!--
+       --><li><a href="/">首页</a></li><!--
      --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
+       --><li><a href="/archives/">归档</a></li><!--
      --><!--
        --><li><a href="/note/">Note</a></li><!--
      --><!--
-       --><li><a href="/tag/">Tag</a></li><!--
+       --><li><a href="/tag/">标签</a></li><!--
      --><!--
-       --><li><a href="/search/">Search</a></li><!--
+       --><li><a href="/search/">搜索</a></li><!--
      --><!--
-       --><li><a href="/about/">About</a></li><!--
+       --><li><a href="/about/">关于我</a></li><!--
      --><!--
-       --><li><a href="/project/">Projects</a></li><!--
+       --><li><a href="/project/">项目</a></li><!--
      -->
       </ul>
     </span>
@@ -84,18 +84,18 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/2023/03/07/%E8%8B%B1%E8%AF%AD%E8%80%83%E7%A0%94%E5%8D%95%E8%AF%8D%E8%81%94%E6%83%B3%E8%AE%B0%E5%BF%86%E7%AC%94%E8%AE%B0-001/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="上一篇" href="/2023/03/07/%E8%8B%B1%E8%AF%AD%E8%80%83%E7%A0%94%E5%8D%95%E8%AF%8D%E8%81%94%E6%83%B3%E8%AE%B0%E5%BF%86%E7%AC%94%E8%AE%B0-001/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/2023/03/07/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%99%BD%E7%9B%92%E5%AE%A1%E8%AE%A1%EF%BC%88%E6%BA%90%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%89/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="下一篇" href="/2023/03/07/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%99%BD%E7%9B%92%E5%AE%A1%E8%AE%A1%EF%BC%88%E6%BA%90%E7%A0%81%E5%AE%A1%E8%AE%A1%EF%BC%89/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
-        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
       </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
     </span>
     <br/>
     <div id="share" style="display: none">
@@ -190,7 +190,7 @@
 
     <div class="blog-post-comments">
         <div id="disqus_thread">
-            <noscript>Please enable JavaScript to view the comments.</noscript>
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
         </div>
     </div>
 
@@ -203,19 +203,19 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/">Home</a></li>
+          <li><a href="/">首页</a></li>
          
-          <li><a href="/archives/">Writing</a></li>
+          <li><a href="/archives/">归档</a></li>
          
           <li><a href="/note/">Note</a></li>
          
-          <li><a href="/tag/">Tag</a></li>
+          <li><a href="/tag/">标签</a></li>
          
-          <li><a href="/search/">Search</a></li>
+          <li><a href="/search/">搜索</a></li>
          
-          <li><a href="/about/">About</a></li>
+          <li><a href="/about/">关于我</a></li>
          
-          <li><a href="/project/">Projects</a></li>
+          <li><a href="/project/">项目</a></li>
         
       </ul>
     </div>
@@ -242,10 +242,10 @@
     </div>
 
     <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
     </div>
 
   </div>
@@ -264,19 +264,19 @@
     <nav>
       <ul>
         <!--
-      --><li><a href="/">Home</a></li><!--
+      --><li><a href="/">首页</a></li><!--
     --><!--
-      --><li><a href="/archives/">Writing</a></li><!--
+      --><li><a href="/archives/">归档</a></li><!--
     --><!--
       --><li><a href="/note/">Note</a></li><!--
     --><!--
-      --><li><a href="/tag/">Tag</a></li><!--
+      --><li><a href="/tag/">标签</a></li><!--
     --><!--
-      --><li><a href="/search/">Search</a></li><!--
+      --><li><a href="/search/">搜索</a></li><!--
     --><!--
-      --><li><a href="/about/">About</a></li><!--
+      --><li><a href="/about/">关于我</a></li><!--
     --><!--
-      --><li><a href="/project/">Projects</a></li><!--
+      --><li><a href="/project/">项目</a></li><!--
     -->
       </ul>
       <ul>
@@ -311,7 +311,7 @@
   <script type="text/javascript">
   $(function() {
     // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
     btn += '<i class="far fa-clone"></i>';
     btn += '</span>'; 
     // mount it!
@@ -322,7 +322,7 @@
       }
     });
     clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "Copied!");
+      e.trigger.setAttribute('aria-label', "复制成功！");
       e.clearSelection();
     })
   })

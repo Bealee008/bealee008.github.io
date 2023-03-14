@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="链表基础知识在 C 语言中，链表可以用结构体来实现，结构体包含一个数据成员和一个指向下一个结构体的指针成员。下面是一个简单的链表结构体示例： 1234struct Node &amp;#123;  int data;  struct Node* next;&amp;#125;;  现在，我们可以使用该结构体来定义一个链表，如下所示： 1struct Node* head &#x3D; NULL;  这意味着链表是空的。现在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构-链表">
+<meta property="og:url" content="https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/index.html">
+<meta property="og:site_name" content="Bealee&#39;s Blog">
+<meta property="og:description" content="链表基础知识在 C 语言中，链表可以用结构体来实现，结构体包含一个数据成员和一个指向下一个结构体的指针成员。下面是一个简单的链表结构体示例： 1234struct Node &amp;#123;  int data;  struct Node* next;&amp;#125;;  现在，我们可以使用该结构体来定义一个链表，如下所示： 1struct Node* head &#x3D; NULL;  这意味着链表是空的。现在">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-03-14T03:38:29.713Z">
+<meta property="article:modified_time" content="2023-03-14T04:08:36.772Z">
+<meta property="article:author" content="Bealee">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>数据结构-链表</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Bealee&#39;s Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/note/">Note</a></li><!--
+     --><!--
+       --><li><a href="/tag/">Tag</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/project/">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/03/12/%E6%B5%85%E8%B0%882023%E5%B9%B4%E7%A0%94%E8%80%83%E5%9B%BD%E5%AE%B6%E7%BA%BF%E6%9C%80%E6%96%B0%E5%85%AC%E5%B8%83/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&text=数据结构-链表"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&title=数据结构-链表"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&is_video=false&description=数据结构-链表"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数据结构-链表&body=Check out this article: https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&title=数据结构-链表"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&title=数据结构-链表"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&title=数据结构-链表"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&title=数据结构-链表"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&name=数据结构-链表&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&t=数据结构-链表"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">链表基础知识</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        数据结构-链表
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Bealee</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-03-14T03:38:29.713Z" itemprop="datePublished">2023-03-14</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="链表基础知识"><a href="#链表基础知识" class="headerlink" title="链表基础知识"></a>链表基础知识</h2><p>在 C 语言中，链表可以用结构体来实现，结构体包含一个数据成员和一个指向下一个结构体的指针成员。下面是一个简单的链表结构体示例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">  <span class="type">int</span> data;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">next</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们可以使用该结构体来定义一个链表，如下所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">head</span> =</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这意味着链表是空的。现在，让我们来实现链表的插入和删除操作。</p>
+<p>链表插入操作可以分为两个步骤：</p>
+<ol>
+<li>创建一个新的节点并将数据放入其中。</li>
+<li>将新节点插入到链表中。</li>
+</ol>
+<p>下面是一个简单的链表插入函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">insertNode</span><span class="params">(<span class="type">int</span> data)</span> &#123;</span><br><span class="line">  <span class="comment">// 创建一个新的节点</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">newNode</span> =</span> (<span class="keyword">struct</span> Node*) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> Node));</span><br><span class="line">  newNode-&gt;data = data;</span><br><span class="line">  newNode-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果链表为空，则将新节点作为头节点</span></span><br><span class="line">  <span class="keyword">if</span> (head == <span class="literal">NULL</span>) &#123;</span><br><span class="line">    head = newNode;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 否则，在链表末尾添加新节点</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">lastNode</span> =</span> head;</span><br><span class="line">  <span class="keyword">while</span> (lastNode-&gt;next != <span class="literal">NULL</span>) &#123;</span><br><span class="line">    lastNode = lastNode-&gt;next;</span><br><span class="line">  &#125;</span><br><span class="line">  lastNode-&gt;next = newNode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该函数将数据作为参数，并根据情况创建一个新的节点并将其添加到链表的末尾。</p>
+<p>链表删除操作可以分为三个步骤：</p>
+<ol>
+<li>查找要删除的节点。</li>
+<li>将上一个节点的指针指向下一个节点。</li>
+<li>释放要删除的节点的内存。</li>
+</ol>
+<p>下面是一个简单的链表删除函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">deleteNode</span><span class="params">(<span class="type">int</span> data)</span> &#123;</span><br><span class="line">  <span class="comment">// 如果链表为空，则直接返回</span></span><br><span class="line">  <span class="keyword">if</span> (head == <span class="literal">NULL</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果头节点是要删除的节点，则将头节点指向下一个节点</span></span><br><span class="line">  <span class="keyword">if</span> (head-&gt;data == data) &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">temp</span> =</span> head;</span><br><span class="line">    head = head-&gt;next;</span><br><span class="line">    <span class="built_in">free</span>(temp);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 否则，查找要删除的节点</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">prevNode</span> =</span> head;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">currNode</span> =</span> head-&gt;next;</span><br><span class="line">  <span class="keyword">while</span> (currNode != <span class="literal">NULL</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (currNode-&gt;data == data) &#123;</span><br><span class="line">      prevNode-&gt;next = currNode-&gt;next;</span><br><span class="line">      <span class="built_in">free</span>(currNode);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    prevNode = currNode;</span><br><span class="line">    currNode = currNode-&gt;next;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该函数将要删除的数据作为参数，并根据情况删除节点。</p>
+<p>现在，我们已经实现了链表的插入和删除操作。您可以在您的代码中使用这些函数来操作链表。</p>
+<p>具体实现代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义链表结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">next</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义链表头节点指针</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">head</span> =</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 插入元素到链表尾部</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">insert</span><span class="params">(<span class="type">int</span> value)</span> &#123;</span><br><span class="line">    <span class="comment">// 创建一个新节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">new_node</span> =</span> (<span class="keyword">struct</span> node*) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> node));</span><br><span class="line">    new_node-&gt;data = value;</span><br><span class="line">    new_node-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果链表为空，则新节点成为头节点</span></span><br><span class="line">    <span class="keyword">if</span> (head == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        head = new_node;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 找到链表最后一个节点，并将新节点连接到其后面</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">current</span> =</span> head;</span><br><span class="line">    <span class="keyword">while</span> (current-&gt;next != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        current = current-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    current-&gt;next = new_node;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从链表中删除指定元素</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">delete</span><span class="params">(<span class="type">int</span> value)</span> &#123;</span><br><span class="line">    <span class="comment">// 如果链表为空，则无需删除</span></span><br><span class="line">    <span class="keyword">if</span> (head == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果头节点是要删除的元素，则将头节点指向下一个节点</span></span><br><span class="line">    <span class="keyword">if</span> (head-&gt;data == value) &#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">temp</span> =</span> head;</span><br><span class="line">        head = head-&gt;next;</span><br><span class="line">        <span class="built_in">free</span>(temp);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 找到要删除的元素的前一个节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">current</span> =</span> head;</span><br><span class="line">    <span class="keyword">while</span> (current-&gt;next != <span class="literal">NULL</span> &amp;&amp; current-&gt;next-&gt;data != value) &#123;</span><br><span class="line">        current = current-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果找到了要删除的元素，则将其从链表中删除</span></span><br><span class="line">    <span class="keyword">if</span> (current-&gt;next != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">temp</span> =</span> current-&gt;next;</span><br><span class="line">        current-&gt;next = current-&gt;next-&gt;next;</span><br><span class="line">        <span class="built_in">free</span>(temp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印链表元素</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">print</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">current</span> =</span> head;</span><br><span class="line">    <span class="keyword">while</span> (current != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, current-&gt;data);</span><br><span class="line">        current = current-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 向链表中插入元素</span></span><br><span class="line">    insert(<span class="number">1</span>);</span><br><span class="line">    insert(<span class="number">2</span>);</span><br><span class="line">    insert(<span class="number">3</span>);</span><br><span class="line">    insert(<span class="number">4</span>);</span><br><span class="line">    insert(<span class="number">5</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;链表初始元素：&quot;</span>);</span><br><span class="line">    print();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从链表中删除元素</span></span><br><span class="line">    delete(<span class="number">3</span>);</span><br><span class="line">    delete(<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;删除元素后的链表：&quot;</span>);</span><br><span class="line">    print();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/note/">Note</a></li>
+         
+          <li><a href="/tag/">Tag</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/project/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">链表基础知识</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&text=数据结构-链表"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&title=数据结构-链表"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&is_video=false&description=数据结构-链表"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数据结构-链表&body=Check out this article: https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&title=数据结构-链表"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&title=数据结构-链表"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&title=数据结构-链表"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&title=数据结构-链表"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&name=数据结构-链表&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://bealee008.github.io/2023/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/&t=数据结构-链表"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2023
+    Bealee
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a href="/note/">Note</a></li><!--
+    --><!--
+      --><li><a href="/tag/">Tag</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/project/">Projects</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'cactus-1';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

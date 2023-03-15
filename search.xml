@@ -42,25 +42,6 @@
     
     
     <entry>
-      <title>Hexo + github 搭建博客</title>
-      <link href="/2023/03/14/Hexo%20+%20github%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
-      <url>/2023/03/14/Hexo%20+%20github%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
-      
-        <content type="html"><![CDATA[<p>背景：因为最近打算开始弄个博客用于记录生活和学习&amp;研究内容的平台，博客无疑是一个很好的记录方式，由于以前用服务器搭建有服务端后台功能的博客发现不够安全且需要为服务器付费，所以现在就有了使用GitHub的存储库page来静态访问博客（足够安全和无后台服务端、无需为服务器续费，誒~ 解决方案安排的妥妥哒）的想法，在hexo博客框架下使用cactus主题的博客搭建，存放到GitHub仓库可省去服务器的费用 白嫖快乐！</p><h2 id="新建GitHub仓库"><a href="#新建GitHub仓库" class="headerlink" title="新建GitHub仓库"></a>新建GitHub仓库</h2><img src="https://s2.loli.net/2023/03/07/6OyMsXql3t4k8PK.png" alt="image-20230307005340246.png" style="float:left;" /><br><img src="https://s2.loli.net/2023/03/07/ojfb3n7aYLmxdFr.png" alt="image-20230307005520483.png" style="float:left;" /><h2 id="生成SSH密钥"><a href="#生成SSH密钥" class="headerlink" title="生成SSH密钥"></a>生成SSH密钥</h2><p>本地生成ssh公钥命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;GitHub邮箱&quot;</span></span><br><span class="line">按下回车三次即可生成在C:\Users\xxxx\.ssh目录下</span><br></pre></td></tr></table></figure><img src="https://s2.loli.net/2023/03/07/FYitZ92zcQbmRAh.png" alt="image-20230307005939890.png" style="float:left" />打开id_rsa.pub文件即可看到生成出来的公钥<img src="https://s2.loli.net/2023/03/07/f1HUvhpN4LDgtIl.png" alt="image-20230307010126008.png" style="float:left" />GitHub绑定公钥<img src="https://s2.loli.net/2023/03/07/Hsmht3VYokTfCS8.png" alt="image-20230307010333153.png" style="float:left" />测试公钥是否绑定GitHub命令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>看到以下提示即成功绑定<img src="https://s2.loli.net/2023/03/07/fp15dB6SRwtaD4N.png" alt="image-20230307010619173.png" style="float:left" /><h2 id="安装hexo框架并生成博客内容"><a href="#安装hexo框架并生成博客内容" class="headerlink" title="安装hexo框架并生成博客内容"></a>安装hexo框架并生成博客内容</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g //安装</span><br><span class="line">hexo init blog//自定义博客</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install//安装项目所需要的全部包</span><br><span class="line">hexo server//启动hexo</span><br></pre></td></tr></table></figure><h2 id="提交hexo博客文件到GitHub仓库"><a href="#提交hexo博客文件到GitHub仓库" class="headerlink" title="提交hexo博客文件到GitHub仓库"></a>提交hexo博客文件到GitHub仓库</h2><p>修改本地配置文件为以下内容：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">type: git</span><br><span class="line">respository: 仓库地址</span><br><span class="line">branch:main</span><br></pre></td></tr></table></figure><p>respository为仓库项目<br><img src="https://s2.loli.net/2023/03/07/fyeqFdVHJ83jaLQ.png" alt="image-20230307011831622.png" style="float:left" /><br><img src="https://s2.loli.net/2023/03/07/KgI3VFMmXGNiW6r.png" alt="image-20230307011429858.png" style="float:left" /></p><p>安装hexo提交工具</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>提交当前目录文件夹的所有文件的到仓库</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g //生成博客页面</span><br><span class="line">hexo d//提交到GitHub仓库</span><br></pre></td></tr></table></figure><p>提交的过程中需要验证GitHub的token（默认自动弹窗确认账号密码 &#x2F; 直接授权给web验证），提交完成后再刷新下自己的仓库就可以看到本地的项目就已经提交上来了<br><img src="https://s2.loli.net/2023/03/07/j1vwXJmNUAxaieq.png" alt="image-20230307012212388.png" style="float:left" /></p><p>我们访问以下提交上来的博客地址：xxxx.github.io<br><img src="https://s2.loli.net/2023/03/07/VyEdrDobqJWnk1j.png" alt="image-20230307012531949.png" style="float:left" /><br>后期再进行优化，就先这样 下课！</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> blog杂记 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>浅谈2023年研考国家线最新公布</title>
       <link href="/2023/03/12/%E6%B5%85%E8%B0%882023%E5%B9%B4%E7%A0%94%E8%80%83%E5%9B%BD%E5%AE%B6%E7%BA%BF%E6%9C%80%E6%96%B0%E5%85%AC%E5%B8%83/"/>
       <url>/2023/03/12/%E6%B5%85%E8%B0%882023%E5%B9%B4%E7%A0%94%E8%80%83%E5%9B%BD%E5%AE%B6%E7%BA%BF%E6%9C%80%E6%96%B0%E5%85%AC%E5%B8%83/</url>
@@ -261,6 +242,25 @@
       <categories>
           
           <category> Docker命令 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hexo + github 搭建博客</title>
+      <link href="/2023/03/05/Hexo%20+%20github%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
+      <url>/2023/03/05/Hexo%20+%20github%20%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
+      
+        <content type="html"><![CDATA[<p>背景：因为最近打算开始弄个博客用于记录生活和学习&amp;研究内容的平台，博客无疑是一个很好的记录方式，由于以前用服务器搭建有服务端后台功能的博客发现不够安全且需要为服务器付费，所以现在就有了使用GitHub的存储库page来静态访问博客（足够安全和无后台服务端、无需为服务器续费，誒~ 解决方案安排的妥妥哒）的想法，在hexo博客框架下使用cactus主题的博客搭建，存放到GitHub仓库可省去服务器的费用 白嫖快乐！</p><h2 id="新建GitHub仓库"><a href="#新建GitHub仓库" class="headerlink" title="新建GitHub仓库"></a>新建GitHub仓库</h2><img src="https://s2.loli.net/2023/03/07/6OyMsXql3t4k8PK.png" alt="image-20230307005340246.png" style="float:left;" /><br><img src="https://s2.loli.net/2023/03/07/ojfb3n7aYLmxdFr.png" alt="image-20230307005520483.png" style="float:left;" /><h2 id="生成SSH密钥"><a href="#生成SSH密钥" class="headerlink" title="生成SSH密钥"></a>生成SSH密钥</h2><p>本地生成ssh公钥命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;GitHub邮箱&quot;</span></span><br><span class="line">按下回车三次即可生成在C:\Users\xxxx\.ssh目录下</span><br></pre></td></tr></table></figure><img src="https://s2.loli.net/2023/03/07/FYitZ92zcQbmRAh.png" alt="image-20230307005939890.png" style="float:left" />打开id_rsa.pub文件即可看到生成出来的公钥<img src="https://s2.loli.net/2023/03/07/f1HUvhpN4LDgtIl.png" alt="image-20230307010126008.png" style="float:left" />GitHub绑定公钥<img src="https://s2.loli.net/2023/03/07/Hsmht3VYokTfCS8.png" alt="image-20230307010333153.png" style="float:left" />测试公钥是否绑定GitHub命令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>看到以下提示即成功绑定<img src="https://s2.loli.net/2023/03/07/fp15dB6SRwtaD4N.png" alt="image-20230307010619173.png" style="float:left" /><h2 id="安装hexo框架并生成博客内容"><a href="#安装hexo框架并生成博客内容" class="headerlink" title="安装hexo框架并生成博客内容"></a>安装hexo框架并生成博客内容</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g //安装</span><br><span class="line">hexo init blog//自定义博客</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install//安装项目所需要的全部包</span><br><span class="line">hexo server//启动hexo</span><br></pre></td></tr></table></figure><h2 id="提交hexo博客文件到GitHub仓库"><a href="#提交hexo博客文件到GitHub仓库" class="headerlink" title="提交hexo博客文件到GitHub仓库"></a>提交hexo博客文件到GitHub仓库</h2><p>修改本地配置文件为以下内容：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">type: git</span><br><span class="line">respository: 仓库地址</span><br><span class="line">branch:main</span><br></pre></td></tr></table></figure><p>respository为仓库项目<br><img src="https://s2.loli.net/2023/03/07/fyeqFdVHJ83jaLQ.png" alt="image-20230307011831622.png" style="float:left" /><br><img src="https://s2.loli.net/2023/03/07/KgI3VFMmXGNiW6r.png" alt="image-20230307011429858.png" style="float:left" /></p><p>安装hexo提交工具</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>提交当前目录文件夹的所有文件的到仓库</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g //生成博客页面</span><br><span class="line">hexo d//提交到GitHub仓库</span><br></pre></td></tr></table></figure><p>提交的过程中需要验证GitHub的token（默认自动弹窗确认账号密码 &#x2F; 直接授权给web验证），提交完成后再刷新下自己的仓库就可以看到本地的项目就已经提交上来了<br><img src="https://s2.loli.net/2023/03/07/j1vwXJmNUAxaieq.png" alt="image-20230307012212388.png" style="float:left" /></p><p>我们访问以下提交上来的博客地址：xxxx.github.io<br><img src="https://s2.loli.net/2023/03/07/VyEdrDobqJWnk1j.png" alt="image-20230307012531949.png" style="float:left" /><br>后期再进行优化，就先这样 下课！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> blog杂记 </category>
           
       </categories>
       

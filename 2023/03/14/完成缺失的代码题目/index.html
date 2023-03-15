@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s2.loli.net/2023/03/07/JiweBXbSKsZRNz4.png">
 <meta property="article:published_time" content="2023-03-14T03:27:26.360Z">
-<meta property="article:modified_time" content="2023-03-15T09:46:49.645Z">
+<meta property="article:modified_time" content="2023-03-15T10:14:15.578Z">
 <meta property="article:author" content="Bealee">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2023/03/07/JiweBXbSKsZRNz4.png">
@@ -161,9 +161,9 @@
   <div class="content" itemprop="articleBody">
     <h2 id="线性表的顺序存储表示（结构）"><a href="#线性表的顺序存储表示（结构）" class="headerlink" title="线性表的顺序存储表示（结构）"></a>线性表的顺序存储表示（结构）</h2><p>完成以下缺失代码：<br>阅读下列程序请注意几个问题：<br>（1）关于线性表的顺序存储结构的本质是：在逻辑上相邻的两个数据元素 a(i-1)， a(i), 在存储地址中也是相邻的，既地址连续。顺序存储结构也称 “向量(vector）”。在下列类设计中，采用静态一维数组 data[]表示向量，同时用Maxsize表示顺序表的最大容量，length表示线性表当前所存放的元素个数。<br>ElemType data [MaxSize];<br>int length;</p>
 <p>(2)在上机实验时，需要一段主函数 main()，在主函数中调用顺序表中定义的各个基本操作〔函数），以便将一个典型数据结构运用到实际问题中去。<br>在没有学习可视化图形界面之前，在主函数中简单设计一个”菜单” (do-while循环内联套一个 switch 结构)。随着学习的深入，应该学会熱练使用 “菜单”技术，这样会明显提高编程和运行效率。</p>
-<h2 id="修改程序题目"><a href="#修改程序题目" class="headerlink" title="修改程序题目"></a>修改程序题目</h2><p>（1）参照以下代码(线性表的顺序存储结构实现了对若干个整型数据的基本操作），为该顺序表增加一个函数 void DelElem_iToj(SqList *L,int i ,int j)：删除从第i个位置到第j个位置范围内的元素。例如，该顺序表中当前内容如下：</p>
+<h2 id="修改程序题目"><a href="#修改程序题目" class="headerlink" title="修改程序题目"></a>修改程序题目</h2><p>（1）参照以下代码(线性表的顺序存储结构实现了对若干个整型数据的基本操作)，为该顺序表增加一个函数 void DelElem_iToj(SqList *L,int i ,int j)：删除从第i个位置到第j个位置范围内的元素。例如，该顺序表中当前内容如下：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">| <span class="number">2</span>    | <span class="number">5</span>    | <span class="number">4</span>    | <span class="number">1</span>    | <span class="number">9</span>    |</span><br><span class="line">| <span class="comment">---- | ---- | ---- | ---- | ---- |</span></span><br></pre></td></tr></table></figure>
-<p>删除从第2个位置到第4个位置范国内的元素后，如下：</p>
+<p>删除从第2个位置到第4个位置范围内的元素后，如下：</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">| <span class="number">2</span>    | <span class="number">9</span>    |      |      |      |</span><br><span class="line">| <span class="comment">---- | ---- | ---- | ---- | ---- |</span></span><br></pre></td></tr></table></figure>
 
 <p>补全缺失代码：</p>

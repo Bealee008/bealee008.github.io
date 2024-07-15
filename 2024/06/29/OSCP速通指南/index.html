@@ -8,16 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
 
 
-    <meta name="description" content="前言由于目前大环境情况不乐观，有必要考些证书，预防失业或被裁风险，那么应该去选择考哪些安全证书呢？目前国际上比较认可的是CISSP、OSCP证书，国内比较认可的是CISP-PTE这一类的证书，不过都是一些基础的证书，我个人认为OSCP证书比较好考一点在国际上认可度也比较高，如果白天要工作，业余花时间去准备OSCP，空余时间不多，所以最好花两个月左右时间去准备Offensive Security 的">
+    <meta name="description" content="前言由于目前大环境情况不乐观，有必要考些证书充实自己，那么应该去选择考哪些安全证书呢？目前国际上比较认可的是CISSP、OSCP证书，国内比较认可的是CISP-PTE这一类的证书，不过都是一些基础的证书，我个人认为OSCP证书比较好考一点在国际上认可度也比较高，如果白天要工作，业余花时间去准备OSCP，空余时间不多，所以最好花两个月左右时间去准备Offensive Security 的OSCP考试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OSCP速通指南">
 <meta property="og:url" content="https://bealee008.github.io/2024/06/29/OSCP%E9%80%9F%E9%80%9A%E6%8C%87%E5%8D%97/index.html">
 <meta property="og:site_name" content="Bealee&#39;s Blog">
-<meta property="og:description" content="前言由于目前大环境情况不乐观，有必要考些证书，预防失业或被裁风险，那么应该去选择考哪些安全证书呢？目前国际上比较认可的是CISSP、OSCP证书，国内比较认可的是CISP-PTE这一类的证书，不过都是一些基础的证书，我个人认为OSCP证书比较好考一点在国际上认可度也比较高，如果白天要工作，业余花时间去准备OSCP，空余时间不多，所以最好花两个月左右时间去准备Offensive Security 的">
+<meta property="og:description" content="前言由于目前大环境情况不乐观，有必要考些证书充实自己，那么应该去选择考哪些安全证书呢？目前国际上比较认可的是CISSP、OSCP证书，国内比较认可的是CISP-PTE这一类的证书，不过都是一些基础的证书，我个人认为OSCP证书比较好考一点在国际上认可度也比较高，如果白天要工作，业余花时间去准备OSCP，空余时间不多，所以最好花两个月左右时间去准备Offensive Security 的OSCP考试">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s2.loli.net/2024/06/29/ipKLnQRMUI7htcy.png">
 <meta property="article:published_time" content="2024-06-29T12:53:37.614Z">
-<meta property="article:modified_time" content="2024-06-29T13:03:03.810Z">
+<meta property="article:modified_time" content="2024-07-15T08:00:07.842Z">
 <meta property="article:author" content="Bealee">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2024/06/29/ipKLnQRMUI7htcy.png">
@@ -164,7 +164,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于目前大环境情况不乐观，有必要考些证书，预防失业或被裁风险，那么应该去选择考哪些安全证书呢？目前国际上比较认可的是CISSP、OSCP证书，国内比较认可的是CISP-PTE这一类的证书，不过都是一些基础的证书，我个人认为OSCP证书比较好考一点在国际上认可度也比较高，如果白天要工作，业余花时间去准备OSCP，空余时间不多，所以最好花两个月左右时间去准备Offensive Security 的OSCP考试。在准备Offensive Security 的OSCP考试中我建议从打相应的靶场开始，合理规划两个月里的打靶时间，以下是我要分享的在准备Offensive Security 的OSCP考试需要知晓的事。</p>
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于目前大环境情况不乐观，有必要考些证书充实自己，那么应该去选择考哪些安全证书呢？目前国际上比较认可的是CISSP、OSCP证书，国内比较认可的是CISP-PTE这一类的证书，不过都是一些基础的证书，我个人认为OSCP证书比较好考一点在国际上认可度也比较高，如果白天要工作，业余花时间去准备OSCP，空余时间不多，所以最好花两个月左右时间去准备Offensive Security 的OSCP考试。在准备Offensive Security 的OSCP考试中我建议从打相应的靶场开始，合理规划两个月里的打靶时间，以下是我要分享的在准备Offensive Security 的OSCP考试需要知晓的事。</p>
 <h2 id="OSCP简述"><a href="#OSCP简述" class="headerlink" title="OSCP简述"></a>OSCP简述</h2><p>OSCP（Offensive Security Certified Professional）是由Offensive Security（该公司开发和维护着Kali Linux，以下简称Offsec）推出的顶级信息安全认证。OSCP以其完善的体系和高难度著称，特别适合有一定基础但缺乏3年以上渗透工作经验的人员。认证课程结合了理论知识和实操训练，尤其注重实际操作能力。作为业界最知名的安全证书，OSCP要求考生在真实环境中进行渗透测试并提交详尽的报告。如果你对网络、主机渗透以及红队活动感兴趣，OSCP是你进入这一领域的理想起点。</p>
 <p><img src="https://s2.loli.net/2024/06/29/ipKLnQRMUI7htcy.png" alt="image-20240629182651765.png"></p>
 <h2 id="OSCP考试规则"><a href="#OSCP考试规则" class="headerlink" title="OSCP考试规则"></a>OSCP考试规则</h2><p>🔗<a target="_blank" rel="noopener" href="https://help.offsec.com/hc/en-us/articles/360040165632-OSCP-Exam-Guide">OSCP官方考试规则</a></p>
@@ -193,17 +193,21 @@
 <li><p>一定的编程经验，可以帮助检查公开exp当中的错误并且进行修改。</p>
 </li>
 </ul>
-<h2 id="OSCP靶场和资源推荐"><a href="#OSCP靶场和资源推荐" class="headerlink" title="OSCP靶场和资源推荐"></a>OSCP靶场和资源推荐</h2><p>OSCP的准备主要是围绕着三大靶场进行：</p>
-<p>​	🤖<a target="_blank" rel="noopener" href="https://www.vulnhub.com/">Vulnhub</a>：这个靶场的团队被Offsec收购现在为Offsec做靶场，免费。</p>
+<h2 id="OSCP靶场和资源推荐"><a href="#OSCP靶场和资源推荐" class="headerlink" title="OSCP靶场和资源推荐"></a>OSCP靶场和资源推荐</h2><p>OSCP备考靶场：</p>
+<p>​	🤖<a target="_blank" rel="noopener" href="https://www.vulnhub.com/">Vulnhub</a>：这个靶场的团队被Offsec收购现在为Offsec做靶场，免费，缺点就是被Offensive Security收购后，22年就停更了。</p>
 <p>​	🤖<a target="_blank" rel="noopener" href="https://www.hackthebox.com/">HTB</a>：这里面机器质量很不错，并且设计的知识点比较多，一个月14美元。</p>
 <p>​	🤖<a target="_blank" rel="noopener" href="https://portal.offsec.com/labs/practice">PG</a>：官方练习靶场，19美元一个月。</p>
+<p>​	🤖<a target="_blank" rel="noopener" href="https://tryhackme.com/">tryhackme</a>：丰富的实验环境、社区支持，大部分免费，高级靶场约10美元&#x2F;月。适合初学者和中级学习者。</p>
+<p>​	🤖<a target="_blank" rel="noopener" href="https://hackmyvm.eu/">hackmyvm</a>：多可查看用户提交的WP，免费，靶机的质量还可以。</p>
+<p>​	🤖<a target="_blank" rel="noopener" href="https://hackmyvm.eu/">vulnyx</a>：全部靶机只由一个作者出的（思路有局限性），免费，适合所有技能水平用户。</p>
 <p>训练靶场清单：</p>
 <p>​	🔗<a target="_blank" rel="noopener" href="https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/htmlview#">NetSecFocus Trophy Room</a>       </p>
 <p>​	🔗<a target="_blank" rel="noopener" href="https://docs.google.com/spreadsheets/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/edit?gid=273133724#gid=273133724">NetSecFocus Trophy Room</a></p>
-<p>国内靶机通关系列视频（Vulnhub、HTB）：</p>
+<p>国内靶机通关系列视频（Vulnhub、HTB等）：</p>
 <p>​	📺<a target="_blank" rel="noopener" href="https://space.bilibili.com/102541140/channel/collectiondetail?sid=1397293">Zer0-hex</a>			</p>
 <p>​	📺<a target="_blank" rel="noopener" href="https://space.bilibili.com/491748397/channel/collectiondetail?sid=821390">红队笔记</a>			</p>
 <p>​	📺<a target="_blank" rel="noopener" href="https://space.bilibili.com/353221990/channel/series">MirkoPenetration</a></p>
+<p>​	📺<a target="_blank" rel="noopener" href="https://space.bilibili.com/20805349">我是大傻子a</a></p>
 <p>通过OSCP考试的博主分享文章（国内）：</p>
 <p>​	📄<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/9k7weGlfNdMOT7Isw_fW8Q">OSCP 2024 Review</a></p>
 <p>​	📄<a target="_blank" rel="noopener" href="https://www.cocosec.com/archives/685.html">OSCP踩坑指南2023年7月</a></p>
@@ -232,6 +236,9 @@
 <p>  [13] <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/HAH9UFd6u7yMfMm6PbhW7g">8小时速通，安服仔浅谈OSCP</a></p>
 <p>  [14] <a target="_blank" rel="noopener" href="https://medium.com/@issam.qsous/how-i-conquered-the-oscp-in-a-month-1d2a7740507a">我是如何在一个月内通过OSCP的！</a></p>
 <p>  [15] <a target="_blank" rel="noopener" href="https://medium.com/@0xP/oscp-2022-tips-to-help-you-pass-dddd3563967e">OSCP 2022 - 助您通过的小贴士</a></p>
+<p>  [16] <a target="_blank" rel="noopener" href="https://tryhackme.com/">tryhackme</a></p>
+<p>  [17] <a target="_blank" rel="noopener" href="https://hackmyvm.eu/">hackmyvm</a></p>
+<p>  [18] <a target="_blank" rel="noopener" href="https://hackmyvm.eu/">vulnyx</a></p>
 
   </div>
 </article>
